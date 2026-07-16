@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { ArrowDown, Download, Rocket, Sparkles } from "lucide-react";
 import { siteConfig } from "@/lib/data";
 import { Button } from "../ui/Button";
@@ -165,8 +166,15 @@ export function Hero() {
             <div className="relative h-full w-full rounded-[2.5rem] glass overflow-hidden shadow-glow">
               <div className="h-full w-full bg-gradient-to-br from-neon-blue/20 via-transparent to-neon-purple/20 flex items-center justify-center">
                 <div className="flex flex-col items-center justify-center text-center px-6">
-                  <div className="h-28 w-28 sm:h-32 sm:w-32 rounded-full bg-gradient-to-br from-neon-blue to-neon-purple flex items-center justify-center text-4xl font-bold text-white shadow-glow mb-4">
-                    AN
+                  <div className="relative h-28 w-28 sm:h-32 sm:w-32 rounded-full overflow-hidden shadow-glow mb-4 ring-2 ring-white/20">
+                    <Image
+                      src="/images/profile.png"
+                      alt={siteConfig.name}
+                      fill
+                      priority
+                      sizes="(min-width: 640px) 8rem, 7rem"
+                      className="object-cover"
+                    />
                   </div>
                   <p className="text-sm text-muted-foreground">
                     Software Engineer
