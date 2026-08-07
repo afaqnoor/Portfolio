@@ -43,7 +43,7 @@ This project **builds cleanly with zero TypeScript/ESLint errors** (verified wit
 
 ## ✏️ Customization Checklist
 
-1. **Profile photo** — replace the placeholder avatar block in `components/sections/Hero.tsx` with a real `<Image />` of yourself. Drop your photo in `public/images/`.
+1. **Profile photo** — replace the placeholder avatar block in `components/sections/Hero.tsx` with a real `<Image />` of yourself. Drop your photo in `public/images/profile.png`.
 2. **Resume** — add your real PDF at `public/resume/AfaqNoor-1.pdf` (referenced by `siteConfig.resumeUrl` in `lib/data.ts`).
 3. **Content** — all text (name, bio, skills, projects, testimonials, services, links) lives in **`lib/data.ts`**. Edit that one file to update the entire site.
 4. **Project images** — currently using royalty-free Unsplash URLs as placeholders. Swap in real app screenshots (place them in `public/images/projects/` and update `projects[].image` in `lib/data.ts`).
