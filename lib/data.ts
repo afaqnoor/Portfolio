@@ -25,7 +25,7 @@ export const siteConfig = {
   degree: "BS Computer Science",
   gradYear: "2023",
   yearsExperience: "3+",
-  resumeUrl: "/resume/AfaqNoor-1.pdf",
+  resumeUrl: "/resume/AfaqNoor.pdf",
   intro:
     "I build fast, reliable Android apps and full-stack web platforms that turn ambitious ideas into polished products — combining clean architecture, modern UI, and performance-first engineering to help businesses ship with confidence.",
   aboutParagraphs: [
