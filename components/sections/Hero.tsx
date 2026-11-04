@@ -40,7 +40,10 @@ export function Hero() {
       <div className="mx-auto max-w-6xl px-5 md:px-10">
         <div className="grid items-end gap-14 lg:grid-cols-[1.35fr_0.65fr]">
           <div>
-            <motion.div {...rise(0)} className="flex flex-wrap items-center gap-3">
+            <motion.div
+              {...rise(0)}
+              className="flex flex-wrap items-center gap-3"
+            >
               <span className="inline-flex items-center gap-2 rounded-full border bg-card/60 px-3 py-1.5 text-xs text-muted-foreground backdrop-blur">
                 <span className="relative flex h-1.5 w-1.5">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
@@ -70,18 +73,32 @@ export function Hero() {
               {...rise(0.16)}
               className="mt-8 max-w-xl text-base md:text-lg leading-relaxed text-muted-foreground"
             >
-              I&apos;m <span className="text-foreground font-medium">{siteConfig.name}</span>,
-              a software engineer at {siteConfig.company} crafting native Android apps and
-              full-stack web platforms — with clean architecture, considered UI, and
-              performance that holds up in production.
+              I&apos;m{" "}
+              <span className="text-foreground font-medium">
+                {siteConfig.name}
+              </span>
+              , a software engineer at {siteConfig.company} crafting native
+              Android apps and full-stack web platforms — with clean
+              architecture, considered UI, and performance that holds up in
+              production.
             </motion.p>
 
-            <motion.div {...rise(0.24)} className="mt-10 flex flex-wrap items-center gap-3">
-              <a href="#projects" className="btn-primary group h-12 px-6 text-[15px]">
+            <motion.div
+              {...rise(0.24)}
+              className="mt-10 flex flex-wrap items-center gap-3"
+            >
+              <a
+                href="#projects"
+                className="btn-primary group h-12 px-6 text-[15px]"
+              >
                 See my work
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </a>
-              <a href={siteConfig.resumeUrl} download className="btn-secondary h-12 px-6 text-[15px]">
+              <a
+                href={siteConfig.resumeUrl}
+                download
+                className="btn-secondary h-12 px-6 text-[15px]"
+              >
                 <Download className="h-4 w-4" />
                 Download CV
               </a>
@@ -97,7 +114,7 @@ export function Hero() {
             <div className="surface overflow-hidden p-2">
               <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-muted">
                 <Image
-                  src="/images/profile.webp"
+                  src="/images/dp.png"
                   alt={siteConfig.name}
                   fill
                   priority
@@ -108,7 +125,9 @@ export function Hero() {
                 <div className="absolute inset-x-4 bottom-4 flex items-end justify-between text-white">
                   <div>
                     <p className="font-medium">{siteConfig.name}</p>
-                    <p className="text-xs text-white/70">Android & Full Stack</p>
+                    <p className="text-xs text-white/70">
+                      Android & Full Stack
+                    </p>
                   </div>
                   <span className="rounded-full bg-white/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider backdrop-blur">
                     {siteConfig.yearsExperience} yrs
@@ -125,7 +144,10 @@ export function Hero() {
           className="mt-20 grid grid-cols-2 md:grid-cols-4 border-y divide-x divide-border [&>div:nth-child(3)]:border-l-0 md:[&>div:nth-child(3)]:border-l"
         >
           {stats.map((s) => (
-            <div key={s.label} className="px-5 py-7 first:pl-0 md:px-8 md:first:pl-0">
+            <div
+              key={s.label}
+              className="px-5 py-7 first:pl-0 md:px-8 md:first:pl-0"
+            >
               <dt className="sr-only">{s.label}</dt>
               <dd className="text-3xl md:text-4xl font-semibold tracking-tight">
                 {s.value}
