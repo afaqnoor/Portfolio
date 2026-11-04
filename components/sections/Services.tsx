@@ -1,38 +1,39 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Section, SectionHeading } from "../ui/Section";
+import { Reveal, Section, SectionHeading } from "../ui/Section";
 import { services, serviceIconMap } from "@/lib/data";
 
 export function Services() {
   return (
-    <Section id="services" className="bg-gradient-to-b from-transparent via-white/[0.015] to-transparent">
+    <Section id="services">
       <SectionHeading
+        index="05"
         eyebrow="Services"
-        title="How I can help you build"
-        description="End-to-end mobile and web development services tailored to your product goals."
+        title="How I can help"
+        accent="you build."
+        description="End-to-end mobile and web development, tailored to your product goals."
       />
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid overflow-hidden rounded-2xl border sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border">
         {services.map((service, i) => {
           const Icon = serviceIconMap[service.icon as keyof typeof serviceIconMap];
           return (
-            <motion.div
+            <Reveal
               key={service.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: (i % 4) * 0.08 }}
-              className="glass-card p-6 group"
+              delay={(i % 4) * 0.06}
+              className="group relative bg-background p-7 transition-colors duration-300 hover:bg-card"
             >
-              <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-neon-blue/20 to-neon-purple/20 flex items-center justify-center mb-5 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6">
-                <Icon className="h-5.5 w-5.5 text-neon-blue-light" />
+              <div className="flex items-center justify-between">
+                <Icon className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-accent" />
+                <span className="font-mono text-xs text-muted-foreground/60">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
               </div>
-              <h3 className="font-semibold mb-2">{service.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <h3 className="mt-10 font-medium">{service.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                 {service.description}
               </p>
-            </motion.div>
+            </Reveal>
           );
         })}
       </div>

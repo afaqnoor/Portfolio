@@ -416,12 +416,10 @@ export const testimonials = [
 ];
 
 export const navLinks = [
-  { name: "Home", href: "#home" },
   { name: "About", href: "#about" },
   { name: "Skills", href: "#skills" },
   { name: "Experience", href: "#experience" },
-  { name: "Projects", href: "#projects" },
+  { name: "Work", href: "#projects" },
   { name: "Services", href: "#services" },
-  { name: "Testimonials", href: "#testimonials" },
   { name: "Contact", href: "#contact" },
 ];

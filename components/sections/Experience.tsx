@@ -1,57 +1,49 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Briefcase, CheckCircle2 } from "lucide-react";
-import { Section, SectionHeading } from "../ui/Section";
+import { Reveal, Section, SectionHeading } from "../ui/Section";
 import { experience } from "@/lib/data";
 
 export function Experience() {
   return (
     <Section id="experience">
       <SectionHeading
+        index="03"
         eyebrow="Experience"
-        title="Where I've made an impact"
-        description="Professional experience building and shipping production software."
+        title="Where I've"
+        accent="made an impact."
       />
 
-      <div className="relative max-w-3xl">
-        <div className="absolute left-6 top-2 bottom-2 w-px bg-gradient-to-b from-neon-blue via-neon-purple to-transparent" />
-
+      <div className="border-t">
         {experience.map((job, i) => (
-          <motion.div
+          <Reveal
             key={job.company + i}
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.6 }}
-            className="relative pl-20 pb-4"
+            className="grid gap-6 border-b py-10 md:grid-cols-[220px_1fr] md:gap-12"
           >
-            <div className="absolute left-0 top-0 h-12 w-12 rounded-2xl glass flex items-center justify-center shadow-glow">
-              <Briefcase className="h-5 w-5 text-neon-blue-light" />
+            <div>
+              <p className="font-mono text-sm text-muted-foreground">{job.period}</p>
+              <p className="mt-1 text-sm text-muted-foreground/70">{job.duration}</p>
             </div>
 
-            <div className="glass-card p-7">
-              <div className="flex flex-wrap items-center justify-between gap-3 mb-1">
-                <h3 className="text-xl font-semibold">{job.role}</h3>
-                <span className="text-xs font-medium px-3 py-1 rounded-full bg-white/5 text-neon-purple-light border border-white/10">
-                  {job.period}
+            <div>
+              <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">{job.role}</h3>
+                <span className="font-serif italic text-2xl text-muted-foreground">
+                  at {job.company}
                 </span>
               </div>
-              <p className="text-neon-blue-light font-medium mb-1">{job.company}</p>
-              <p className="text-sm text-muted-foreground mb-5">
-                {job.duration} of professional experience
+              <p className="mt-4 max-w-2xl text-muted-foreground leading-relaxed">
+                Designing, building and shipping production Android apps and web platforms
+                for real clients — owning features from architecture through release.
               </p>
-
-              <div className="grid sm:grid-cols-2 gap-3">
+              <div className="mt-6 flex flex-wrap gap-2">
                 {job.responsibilities.map((r) => (
-                  <div key={r} className="flex items-center gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-neon-purple-light shrink-0" />
-                    <span className="text-sm text-muted-foreground">{r}</span>
-                  </div>
+                  <span key={r} className="chip">
+                    {r}
+                  </span>
                 ))}
               </div>
             </div>
-          </motion.div>
+          </Reveal>
         ))}
       </div>
     </Section>

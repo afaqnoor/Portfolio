@@ -1,67 +1,49 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Section, SectionHeading } from "../ui/Section";
+import { Card, Reveal, Section, SectionHeading } from "../ui/Section";
 import { iconMap, skillCategories } from "@/lib/data";
-
-function SkillBar({ name, level, delay }: { name: string; level: number; delay: number }) {
-  return (
-    <div>
-      <div className="flex items-center justify-between mb-2">
-        <span className="text-sm font-medium text-foreground">{name}</span>
-        <span className="text-xs text-muted-foreground">{level}%</span>
-      </div>
-      <div className="h-2 rounded-full bg-white/5 overflow-hidden">
-        <motion.div
-          className="h-full rounded-full shimmer-bar"
-          initial={{ width: 0 }}
-          whileInView={{ width: `${level}%` }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 1, delay, ease: "easeOut" }}
-        />
-      </div>
-    </div>
-  );
-}
+import { cn } from "@/lib/utils";
 
 export function Skills() {
   return (
-    <Section id="skills" className="bg-gradient-to-b from-transparent via-white/[0.015] to-transparent">
+    <Section id="skills">
       <SectionHeading
-        eyebrow="Skills & Expertise"
-        title="A well-rounded, production-ready toolkit"
-        description="From native Android engineering to full-stack web development — here's what powers the products I build."
+        index="02"
+        eyebrow="Toolkit"
+        title="A production-ready"
+        accent="stack."
+        description="From native Android to full-stack web — the tools behind everything I ship."
       />
 
-      <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-        {skillCategories.map((category, ci) => {
+      <div className="grid gap-4 md:grid-cols-6">
+        {skillCategories.map((category, i) => {
           const Icon = iconMap[category.icon];
+          // Bento rhythm: 3 + 3 on the first row, 2 + 2 + 2 on the second
+          const span = i < 2 ? "md:col-span-3" : "md:col-span-2";
           return (
-            <motion.div
-              key={category.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.6, delay: (ci % 3) * 0.1 }}
-              className="glass-card p-7"
-            >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="h-11 w-11 rounded-xl bg-gradient-to-br from-neon-blue/20 to-neon-purple/20 flex items-center justify-center">
-                  <Icon className="h-5 w-5 text-neon-blue-light" />
+            <Reveal key={category.title} delay={(i % 3) * 0.08} className={span}>
+              <Card className="h-full p-7">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-medium">{category.title}</h3>
+                  <div className="grid h-9 w-9 place-items-center rounded-lg border bg-muted/60">
+                    <Icon className="h-4 w-4 text-muted-foreground" />
+                  </div>
                 </div>
-                <h3 className="text-lg font-semibold">{category.title}</h3>
-              </div>
-              <div className="space-y-5">
-                {category.skills.map((skill, si) => (
-                  <SkillBar
-                    key={skill.name}
-                    name={skill.name}
-                    level={skill.level}
-                    delay={si * 0.08}
-                  />
-                ))}
-              </div>
-            </motion.div>
+                <div className="mt-8 flex flex-wrap gap-2">
+                  {category.skills.map((skill) => (
+                    <span
+                      key={skill.name}
+                      className={cn(
+                        "chip text-[13px]",
+                        skill.level >= 92 && "border-accent/30 text-foreground"
+                      )}
+                    >
+                      {skill.name}
+                    </span>
+                  ))}
+                </div>
+              </Card>
+            </Reveal>
           );
         })}
       </div>

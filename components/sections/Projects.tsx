@@ -3,92 +3,78 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { Github, ExternalLink, LayoutGrid, Smartphone, Globe } from "lucide-react";
-import { Section, SectionHeading } from "../ui/Section";
+import { ArrowUpRight, Github } from "lucide-react";
+import { Card, Reveal, Section, SectionHeading } from "../ui/Section";
 import { projects, type Project } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
 const filters = [
-  { key: "all", label: "All Projects", icon: LayoutGrid },
-  { key: "android", label: "Android Apps", icon: Smartphone },
-  { key: "web", label: "Web Projects", icon: Globe },
+  { key: "all", label: "All" },
+  { key: "android", label: "Android" },
+  { key: "web", label: "Web" },
 ] as const;
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const href = project.demo ?? project.github;
+
   return (
     <motion.div
       layout
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -12 }}
-      transition={{ duration: 0.45, delay: (index % 3) * 0.06 }}
-      className="glass-card overflow-hidden group flex flex-col"
+      exit={{ opacity: 0, scale: 0.98 }}
+      transition={{ duration: 0.5, delay: (index % 2) * 0.06, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="relative h-52 w-full overflow-hidden">
-        <Image
-          src={project.image}
-          alt={project.name}
-          fill
-          sizes="(max-width: 768px) 100vw, 33vw"
-          className="object-cover transition-transform duration-700 group-hover:scale-110"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-        <span className="absolute top-4 left-4 text-[11px] font-semibold uppercase tracking-wider px-3 py-1 rounded-full glass">
-          {project.category === "android" ? "Android" : "Web"}
-        </span>
-      </div>
-
-      <div className="p-6 flex flex-col flex-1">
-        <h3 className="text-lg font-semibold mb-2">{project.name}</h3>
-        <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-          {project.description}
-        </p>
-
-        <div className="flex flex-wrap gap-2 mb-4">
-          {project.stack.map((tech) => (
-            <span
-              key={tech}
-              className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-neon-blue-light"
-            >
-              {tech}
-            </span>
-          ))}
+      <Card className="group h-full p-2 flex flex-col">
+        <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-muted">
+          <Image
+            src={project.image}
+            alt={project.name}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
+          />
+          <span className="absolute left-3 top-3 rounded-full bg-black/50 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-white backdrop-blur">
+            {project.category === "android" ? "Android" : "Web"}
+          </span>
         </div>
 
-        <ul className="space-y-1.5 mb-6">
-          {project.features.slice(0, 3).map((f) => (
-            <li key={f} className="text-xs text-muted-foreground flex items-start gap-2">
-              <span className="mt-1 h-1 w-1 rounded-full bg-neon-purple-light shrink-0" />
-              {f}
-            </li>
-          ))}
-        </ul>
-
-        <div className="mt-auto flex gap-3">
-          {project.github && (
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 inline-flex items-center justify-center gap-2 rounded-full btn-ghost px-4 py-2.5 text-sm font-medium"
-            >
-              <Github className="h-4 w-4" />
-              GitHub
-            </a>
-          )}
-          {project.demo && (
-            <a
-              href={project.demo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 inline-flex items-center justify-center gap-2 rounded-full btn-neon px-4 py-2.5 text-sm font-medium text-white"
-            >
-              <ExternalLink className="h-4 w-4" />
-              Live Demo
-            </a>
-          )}
+        <div className="flex flex-1 flex-col p-5 md:p-6">
+          <div className="flex items-start justify-between gap-4">
+            <h3 className="text-xl font-medium tracking-tight">{project.name}</h3>
+            <div className="flex shrink-0 gap-1.5">
+              {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${project.name} on GitHub`}
+                  className="grid h-9 w-9 place-items-center rounded-full border text-muted-foreground transition-colors hover:text-foreground hover:bg-muted"
+                >
+                  <Github className="h-4 w-4" />
+                </a>
+              )}
+              {href && (
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Open ${project.name}`}
+                  className="grid h-9 w-9 place-items-center rounded-full bg-foreground text-background transition-transform group-hover:rotate-45"
+                >
+                  <ArrowUpRight className="h-4 w-4" />
+                </a>
+              )}
+            </div>
+          </div>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            {project.description}
+          </p>
+          <p className="mt-auto pt-6 font-mono text-[11px] uppercase tracking-wider text-muted-foreground/80">
+            {project.stack.join("  ·  ")}
+          </p>
         </div>
-      </div>
+      </Card>
     </motion.div>
   );
 }
@@ -104,30 +90,36 @@ export function Projects() {
   return (
     <Section id="projects">
       <SectionHeading
-        eyebrow="Featured Work"
-        title="Projects that speak for themselves"
-        description="A selection of Android apps and full-stack web projects I've designed, built, and shipped."
+        index="04"
+        eyebrow="Selected work"
+        title="Projects I've"
+        accent="shipped."
+        description="Android apps and full-stack web products — designed, built and deployed."
       />
 
-      <div className="flex flex-wrap gap-3 mb-12">
-        {filters.map(({ key, label, icon: Icon }) => (
+      <Reveal className="mb-10 inline-flex rounded-full border bg-card p-1">
+        {filters.map(({ key, label }) => (
           <button
             key={key}
             onClick={() => setFilter(key)}
             className={cn(
-              "inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300",
-              filter === key
-                ? "btn-neon text-white"
-                : "glass text-muted-foreground hover:text-foreground"
+              "relative rounded-full px-5 py-2 text-sm transition-colors",
+              filter === key ? "text-background" : "text-muted-foreground hover:text-foreground"
             )}
           >
-            <Icon className="h-4 w-4" />
-            {label}
+            {filter === key && (
+              <motion.span
+                layoutId="project-filter"
+                className="absolute inset-0 -z-0 rounded-full bg-foreground"
+                transition={{ type: "spring", stiffness: 400, damping: 34 }}
+              />
+            )}
+            <span className="relative">{label}</span>
           </button>
         ))}
-      </div>
+      </Reveal>
 
-      <motion.div layout className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+      <motion.div layout className="grid gap-4 md:grid-cols-2">
         <AnimatePresence mode="popLayout">
           {filtered.map((project, i) => (
             <ProjectCard key={project.id} project={project} index={i} />

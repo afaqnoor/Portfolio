@@ -17,7 +17,7 @@ export function ThemeToggle() {
   );
 
   if (!mounted) {
-    return <div className="h-10 w-10 rounded-full glass" />;
+    return <div className="h-9 w-9 rounded-full border" />;
   }
 
   const isDark = theme === "dark";
@@ -26,22 +26,18 @@ export function ThemeToggle() {
     <button
       aria-label="Toggle theme"
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="relative h-10 w-10 rounded-full glass flex items-center justify-center overflow-hidden transition-colors hover:border-neon-blue-light/40"
+      className="relative h-9 w-9 rounded-full border flex items-center justify-center overflow-hidden text-muted-foreground transition-colors hover:text-foreground hover:bg-muted"
     >
       <AnimatePresence mode="wait" initial={false}>
         <motion.span
           key={isDark ? "moon" : "sun"}
-          initial={{ y: -20, opacity: 0, rotate: -90 }}
-          animate={{ y: 0, opacity: 1, rotate: 0 }}
-          exit={{ y: 20, opacity: 0, rotate: 90 }}
-          transition={{ duration: 0.25 }}
+          initial={{ y: -14, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 14, opacity: 0 }}
+          transition={{ duration: 0.2 }}
           className="flex items-center justify-center"
         >
-          {isDark ? (
-            <Moon className="h-4 w-4 text-neon-blue-light" />
-          ) : (
-            <Sun className="h-4 w-4 text-amber-500" />
-          )}
+          {isDark ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
         </motion.span>
       </AnimatePresence>
     </button>
